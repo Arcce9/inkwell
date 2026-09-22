@@ -5,7 +5,7 @@ import {
   EmailAlreadyRegisteredError, 
   WeakPasswordError, 
   InvalidCredentialsError 
-} from "../services/auth.service.js";
+} from "../services/auth.services.js";
 
 const router = Router();
 

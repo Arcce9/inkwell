@@ -1,28 +1,37 @@
 // client/src/components/NavBar.jsx
-
-import { Link } from "react-router-dom";
+//
+// Base (unprefixed) classes target mobile first (Section 4.5).
+// md: and lg: prefixes layer on enhancements for larger viewports —
+// never the reverse.
+import { NavLink } from "react-router-dom";
 
 export function NavBar() {
   return (
-    <nav className="bg-white border-b border-gray-200">
-      <div className="max-w-2xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="text-xl font-bold text-gray-900">
-          Inkwell
-        </Link>
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/write" 
-            className="text-gray-600 hover:text-gray-900 font-medium"
-          >
-            Write
-          </Link>
-          <Link 
-            to="/login" 
-            className="text-blue-600 hover:text-blue-700 font-medium"
-          >
-            Log In
-          </Link>
-        </div>
+    <nav className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-200">
+      <div className="font-bold text-lg text-gray-900">Inkwell</div>
+      
+      <div className="flex items-center space-x-6">
+        <NavLink
+          to="/feed"
+          className={({ isActive }) =>
+            `text-sm transition-colors ${
+              isActive ? "font-semibold text-indigo-600" : "text-gray-600 hover:text-gray-900"
+            }`
+          }
+        >
+          Feed
+        </NavLink>
+        
+        <NavLink
+          to="/write"
+          className={({ isActive }) =>
+            `text-sm transition-colors ${
+              isActive ? "font-semibold text-indigo-600" : "text-gray-600 hover:text-gray-900"
+            }`
+          }
+        >
+          Write
+        </NavLink>
       </div>
     </nav>
   );
