@@ -97,7 +97,8 @@ export function PostEditor() {
       <button
         type="submit"
         disabled={status === STATES.PUBLISHING}
-        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-50"
+        className="w-full md:w-auto min-h-[44px] rounded bg-indigo-600 px-4 py-2 text-white disabled:opacity-50"
+        
       >
         {status === STATES.PUBLISHING ? "Publishing…" : "Publish"}
       </button>

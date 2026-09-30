@@ -8,7 +8,15 @@ import { NavLink } from "react-router-dom";
 export function NavBar() {
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-200">
-      <div className="font-bold text-lg text-gray-900">Inkwell</div>
+      <div className="flex items-center gap-2 font-bold text-lg text-gray-900">
+        <img
+          src="/favicon.svg"
+          alt=""
+          aria-hidden="true"
+          className="h-6 w-6"
+        />
+        <span>Inkwell</span>
+      </div>
       
       <div className="flex items-center space-x-6">
         <NavLink
