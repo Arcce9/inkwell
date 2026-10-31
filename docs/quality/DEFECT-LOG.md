@@ -1,8 +1,7 @@
 # Inkwell Defect Log
-| ID | Found During | Cause Category | Description | Remediat
-ion |
-|----|---------------|-----------------|--------------|------
--------|
-| D-001 | Lecture 10 review | Compatibility | Nullish-coalesc
-ing assignment used without a documented minimum Node version
-| Added engines field to package.json |
+| ID | Found During | Cause Category | Description | Remediation |
+|----|---------------|-----------------|--------------|-------------|
+| D-001 | Lecture 10 review | Compatibility | Nullish-coalescing assignment used without a documented minimum Node version | Added engines field to package.json |
+| D-002 | Lecture 11 metrics snapshot | Documentation accuracy | docs/BACKLOG.md contained a duplicated, truncated table and cited docs/requirements/use-cases.md as evidence for "Requirements Defined" status, but that file was empty; the real evidence was in analysis-model.md and api-contract.md | Merged to a single table and corrected the doc references for US-01–US-04 |
+| D-003 | User-reported test run failure | Build/tooling configuration | server/package.json had no "test" script, so `npm test` failed immediately (`Missing script: "test"`) regardless of working directory | Added a "test" script running Jest with `--experimental-vm-modules` (required for `jest.unstable_mockModule` under `"type": "module"`) |
+| D-004 | User-reported test run failure; previously flagged as a note (not yet fixed) in the Lecture 6 review | Naming inconsistency | Service file was named `auth.services.js` (plural), while `auth.routes.js`'s import, the file's own header comment, and the Lecture 9 test file all expected `auth.service.js` (singular, matching `post.service.js`/`token.service.js`) | Renamed to `auth.service.js` via `git mv`; updated the one import site in `auth.routes.js` |

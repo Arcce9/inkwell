@@ -1,14 +1,14 @@
-// server/src/services/post.service.js
 
 import { PostRepository } from "../repositories/post.repository.js";
 import { assertNonEmpty } from "../utils/validation.js";
-import { SubstringSearchStrategy } from "./substring-search.strategy.js";
+import { SubstringSearchStrategy } from "./search/substring-search.strategy.js";
 import { EventBus } from "../events/event-bus.js";
 
-const searchStrategy = SubstringSearchStrategy;
 // Swap this line to change search behavior system-wide.
+const searchStrategy = SubstringSearchStrategy;
 
 export const PostService = {
+  // Publish a new post
   async publish({ authorId, title, body, tagNames = [] }) {
     assertNonEmpty(title, "title", "MISSING_TITLE");
     assertNonEmpty(body, "body", "MISSING_BODY");
@@ -32,6 +32,7 @@ export const PostService = {
     return post;
   },
 
+  // List published posts
   async listPublished({ page = 1, pageSize = 10 }) {
     const { posts, hasMore } = await PostRepository.findPublished({
       page,
@@ -45,10 +46,17 @@ export const PostService = {
     };
   },
 
+  // Search published posts
   async search({ query, page = 1, pageSize = 10 }) {
     return searchStrategy.search(query, {
       page,
       pageSize,
     });
+  },
+  async getById(id) {
+    return PostRepository.findById(id);
+  },
+  async delete(id) {
+    return PostRepository.deleteById(id);
   },
 };

@@ -42,11 +42,19 @@ model Tag {
   posts PostTag[]
 }
 
+// server/prisma/schema.prisma — excerpt, updated
+//
+// Cascade deletion prevents foreign-key violations when
+// deleting a post that has associated tags.
+//
+// Run after updating:
+// npx prisma migrate dev --name post_tag_cascade
+
 model PostTag {
   postId String
   tagId  String
 
-  post Post @relation(fields: [postId], references: [id])
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   tag  Tag  @relation(fields: [tagId], references: [id])
 
   @@id([postId, tagId])
