@@ -1,0 +1,49 @@
+
+# .github/workflows/build-check.yml
+#
+# Section 4.1's workflow and Section 4.2's anatomy.
+# This workflow confirms that the Docker image still builds.
+# Lecture 20 expands this dramatically.
+
+name: Build Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Section 4.2: Least privilege permissions.
+# This workflow only needs to read repository code.
+permissions:
+  contents: read
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+
+    # Section 4.3: A GitHub-hosted runner.
+    # A fresh Ubuntu virtual machine is provisioned
+    # and torn down automatically by GitHub.
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+
+        # Section 4.2: A reusable GitHub Action.
+        # @v5 pins the major version.
+
+      - name: Build the server Docker image
+        run: docker build -t inkwell-server:ci .
+
+      - name: Inspect the server Docker image
+        run: |
+          docker image inspect inkwell-server:ci \
+            --format 'Built {{.Id}} ({{.Architecture}}, {{.Size}} bytes)'
+
+        # docker image inspect exits with an error
+        # if the image does not exist.
+        # This ensures the step fails when missing.
+
+      - name: Confirm the image was built
+        run: docker images inkwell-server:ci
