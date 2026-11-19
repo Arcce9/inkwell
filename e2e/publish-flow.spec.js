@@ -57,7 +57,7 @@ for (const viewport of viewports) {
       await expect(page).toHaveURL("http://localhost:5173/");
 
       // Step 5: Navigate to the post editor.
-      await page.getByRole("link", { name: "Write" }).click();
+      await page.getByRole("link", { name: "Write", exact: true }).click();
 
       // Step 6: Enter the post title and body.
       await page.getByLabel("Title").fill(title);
