@@ -1,0 +1,33 @@
+
+# .github/workflows/build-check.yml
+
+name: Build Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Grant read-only access to repository contents.
+permissions:
+  contents: read
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the repository code.
+      - name: Check out repository code
+        uses: actions/checkout@v5
+
+      # Build the server Docker image.
+      - name: Build the server Docker image
+        run: docker build -t inkwell-server:ci ./server
+
+      # Verify that the Docker image exists.
+      - name: Confirm the image was built
+        run: |
+          docker image inspect inkwell-server:ci \
+            --format 'Built {{.Id}} ({{.Architecture}}, {{.Size}} bytes)'
